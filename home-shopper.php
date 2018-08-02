@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 session_start();
 if(!isset($_SESSION['username'])){
   header("location:login.php");
@@ -129,7 +129,11 @@ include "header-shopper.php";
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-book icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>3</strong></h5>
+                      <?php
+                      $liatpro = mysql_query("SELECT * FROM project WHERE visible='y'");
+                      $p = mysql_num_rows($liatpro);
+                      ?>
+                      <h5><strong><?php echo $p; ?></strong></h5>
                       <span>Total Project</span>
                     </div>
                 </div>
@@ -138,7 +142,11 @@ include "header-shopper.php";
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-home user1 icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>1019</strong></h5>
+                      <?php
+                      $liatstat = mysql_query("SELECT * FROM quest WHERE status=0");
+                      $s = mysql_num_rows($liatstat);
+                      ?>
+                      <h5><strong><?php echo $s; ?></strong></h5>
                       <span>Cabang Pending</span>
                     </div>
                 </div>
@@ -147,7 +155,11 @@ include "header-shopper.php";
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-check-circle user2 icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>300</strong></h5>
+                      <?php
+                      $liatact = mysql_query("SELECT * FROM quest WHERE status=1");
+                      $a = mysql_num_rows($liatact);
+                      ?>
+                      <h5><strong><?php echo $a; ?></strong></h5>
                       <span>Actual</span>
                     </div>
                 </div>
@@ -156,7 +168,11 @@ include "header-shopper.php";
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>102</strong></h5>
+                      <?php
+                      $liatprog = mysql_query("SELECT * FROM quest WHERE status= 0 AND shpdua IS NOT NULL");
+                      $pg = mysql_num_rows($liatprog);
+                      ?>
+                      <h5><strong><?php echo $pg; ?></strong></h5>
                       <span>Progress</span>
                     </div>
                 </div>
@@ -165,7 +181,11 @@ include "header-shopper.php";
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>300</strong></h5>
+                      <?php
+                      $liatshp = mysql_query("SELECT * FROM id_data WHERE pendidikan ='S1'");
+                      $s = mysql_num_rows($liatshp);
+                      ?>
+                      <h5><strong><?php echo $s; ?></strong></h5>
                       <span>Total Shopper</span>
                     </div>
                 </div>

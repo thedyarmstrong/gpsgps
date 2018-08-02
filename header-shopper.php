@@ -10,13 +10,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           </button>
-          <h1><a class="navbar-brand" href="home-spv.php"> MRI<span class="dashboard_text">Actual SHP</span></a></h1>
+          <h1><a class="navbar-brand" href="home-shopper.php"> MRI<span class="dashboard_text">Actual SHP</span></a></h1>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
-              <a href="home-spv.php">
+              <a href="home-shopper.php">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
@@ -28,8 +28,8 @@
               <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="kunjungancabang.php"><i class="fa fa-angle-right"></i> Kunjungan Cabang</a></li>
-                <li><a href="actualcabang.php"><i class="fa fa-angle-right"></i> Actual Cabang</a></li>
+                <li><a href="kunjungancabang.php"><i class="fa fa-angle-right"></i> Kunjungan Pending</a></li>
+                <li><a href="kunjungansukses.php"><i class="fa fa-angle-right"></i> Kunjungan Sukses</a></li>
               </ul>
             </li>
 
@@ -51,50 +51,31 @@
         <ul class="nofitications-dropdown">
 
           <li class="dropdown head-dpdn">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
+            <?php
+            include "koneksi.php";
+            $shpdua = $_SESSION['username'];
+            $notif = mysql_query("SELECT * FROM quest WHERE status = 0 AND shpdua='$shpdua'");
+            $nt = mysql_num_rows($notif);
+            ?>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue"><?php echo $nt; ?></span></a>
             <ul class="dropdown-menu">
               <li>
                 <div class="notification_header">
-                  <h3>You have 3 new notification</h3>
+                  <h3><?php echo $nt; ?> Pemberitahuan Baru</h3>
                 </div>
               </li>
+
+            <?php
+            while ($ntf = mysql_fetch_array($notif)){
+            ?>
               <li><a href="#">
-                <div class="user_img"><img src="images/4.jpg" alt=""></div>
                  <div class="notification_desc">
-                <p>Lorem ipsum dolor amet</p>
+                <p>Kunjungan <?php echo $ntf['project']; ?></p>
                 <p><span>1 hour ago</span></p>
                 </div>
                 <div class="clearfix"></div>
                </a></li>
-               <li class="odd"><a href="#">
-                <div class="user_img"><img src="images/1.jpg" alt=""></div>
-                 <div class="notification_desc">
-                <p>Lorem ipsum dolor amet </p>
-                <p><span>1 hour ago</span></p>
-                </div>
-                 <div class="clearfix"></div>
-               </a></li>
-               <li><a href="#">
-                <div class="user_img"><img src="images/3.jpg" alt=""></div>
-                 <div class="notification_desc">
-                <p>Lorem ipsum dolor amet </p>
-                <p><span>1 hour ago</span></p>
-                </div>
-                 <div class="clearfix"></div>
-               </a></li>
-              <li><a href="#">
-                 <div class="user_img"><img src="images/2.jpg" alt=""></div>
-                 <div class="notification_desc">
-                <p>Lorem ipsum dolor amet </p>
-                <p><span>1 hour ago</span></p>
-                </div>
-                 <div class="clearfix"></div>
-              </a></li>
-               <li>
-                <div class="notification_bottom">
-                  <a href="#">See all notifications</a>
-                </div>
-              </li>
+            <?php } ?>
             </ul>
           </li>
 
@@ -167,7 +148,6 @@
                 <span class="prfil-img"><img src="images/2.jpg" alt=""> </span>
                 <div class="user-name">
                   <?php
-                  include "koneksi.php";
                   $nama = $_SESSION['username'];
                   $carinama = mysql_query("SELECT * FROM id_data WHERE id ='$nama'");
                   $a = mysql_fetch_assoc($carinama);
@@ -181,10 +161,7 @@
               </div>
             </a>
             <ul class="dropdown-menu drp-mnu">
-              <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-              <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
-              <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-              <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+              <li> <a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
             </ul>
           </li>
         </ul>

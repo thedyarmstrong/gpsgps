@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+include "koneksi.php";
 session_start();
 if(!isset($_SESSION['username'])){
   header("location:login.php");
@@ -115,49 +116,99 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-spv.php";
-include "koneksi.php";
-
+include "header-shopper.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-        <div class="row">
-          <div class="form-three widget-shadow">
+        <div class="bs-example widget-shadow" data-example-id="hoverable-table">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Kode</th>
+                <th>Project</th>
+                <th>Nama Cabang</th>
+                <th>Alamat</th>
+                <th>Kota</th>
+                <th>Kunjungan</th>
+                <th>Supervisor</th>
+                <th>Shopper</th>
+                <th>Status</th>
+                <th>Actual</th>
+              </tr>
+            </thead>
 
-            <form class="form-horizontal" action="assign-spv.php?page=1" method="POST">
-
-              <input type="hidden" name="spvdua" value="<?php echo $_SESSION['username']; ?>">
-
-              <div class="form-group">
-                <label for="selector1" class="col-sm-2 control-label">Project</label>
-                <div class="col-sm-6"><select name="project" id="selector1" class="form-control1">
-                <option disabled selected>Pilih Project</option>
+            <tbody>
+              <tr>
                 <?php
-                $project = mysql_query("SELECT * FROM project WHERE visible ='y' ORDER BY nama");
-                while ($a = mysql_fetch_array($project)){
+                include "koneksi.php";
+                $username = $_SESSION['username'];
+                $i = 1;
+                $cabang = mysql_query("SELECT * FROM quest WHERE shpdua ='$username' AND status= 0 ");
+                while ($a = mysql_fetch_array($cabang)){
+                 ?>
+                <th scope="row"><?php echo $i++ ?></th>
+                <td><?php echo $a['cabang']; ?></td>
+                <td>
+                <?php
+                $np = $a['project'];
+                $liatnama = mysql_query("SELECT * FROM project WHERE kode='$np'");
+                $b = mysql_fetch_assoc($liatnama);
+                $namapro = $b['nama'];
+                echo "$namapro";
                 ?>
-                <option value="<?php echo $a['kode']; ?>"><?php echo $a['nama']; ?></option>
+                </td>
+                <td>
                 <?php
+                $cb = $a['cabang'];
+                $liatcab = mysql_query("SELECT * FROM cabang WHERE project='$np' AND kode='$cb'");
+                $c = mysql_fetch_assoc($liatcab);
+                $namacabang = $c['nama'];
+                echo "$namacabang";
+                ?>
+                </td>
+                <td><?php echo $c['alamat']; ?></td>
+                <td><?php echo $c['kota']; ?></td>
+                <td>
+                <?php
+                $kunj = $a['kunjungan'];
+                $liatkunj = mysql_query("SELECT nama FROM attribute WHERE kode='$kunj'");
+                $d = mysql_fetch_assoc($liatkunj);
+                $namakunj = $d['nama'];
+                echo "$namakunj";
+                ?>
+                </td>
+                <td>
+                  <?php
+                  $kodespv = $a['spvdua'];
+                  $liatspv = mysql_query("SELECT nama FROM tb_user WHERE username='$kodespv'");
+                  $e = mysql_fetch_assoc($liatspv);
+                  $namaspv = $e['nama'];
+                  echo "$namaspv";
+                ?>
+                </td>
+                <td>
+                  <?php
+                  $kodeshp = $a['shpdua'];
+                  $liatshp = mysql_query("SELECT nama FROM tb_user WHERE username='$kodeshp'");
+                  $e = mysql_fetch_assoc($liatshp);
+                  $namashp = $e['nama'];
+                  echo "$namashp";
+                  ?>
+                </td>
+                <td><?php echo $a['status']; ?></td>
+                <td><a href="#">Actual</a></td>
+              </tr>
+              <?php
                 }
-                ?>
-                </select></div>
-
-              <div class="col-sm-2"><button class="btn btn-success" name="submit">Submit</button></div>
-              </div>
-
-            </form>
-          </div>
+              ?>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-
-<?php
-
-include "isi.php";
-
- ?>
 
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->

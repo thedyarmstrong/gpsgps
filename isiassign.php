@@ -1,21 +1,21 @@
 <?php
 if(isset($_POST['submit'])){
-$project =$_POST['project'];
+$project    = $_POST['project'];
+$spvdua     = $_POST['spvdua'];
 
 
 ?>
 
-<div class="bs-example widget-shadow" data-example-id="hoverable-table">
+<div class="table-responsive bs-example widget-shadow">
   <table class="table table-hover">
     <thead>
       <tr>
         <th>#</th>
-        <th>Kode</th>
         <th>Project</th>
+        <th>Kode</th>
         <th>Nama Cabang</th>
         <th>Alamat</th>
         <th>Kota</th>
-        <th>Kunjungan</th>
         <th>Shopper</th>
       </tr>
     </thead>
@@ -25,11 +25,10 @@ $project =$_POST['project'];
         <?php
         include "koneksi.php";
         $i = 1;
-        $cabang = mysql_query("SELECT * FROM quest WHERE project ='$project' AND status = 0 ORDER BY cabang");
+        $cabang = mysql_query("SELECT * FROM cabang WHERE project ='$project'");
         while ($a = mysql_fetch_array($cabang)){
          ?>
         <th scope="row"><?php echo $i++ ?></th>
-        <td><?php echo $a['cabang']; ?></td>
         <td>
         <?php
         $np = $a['project'];
@@ -39,32 +38,15 @@ $project =$_POST['project'];
         echo "$namapro";
         ?>
         </td>
-        <td>
-        <?php
-        $cb = $a['cabang'];
-        $liatcab = mysql_query("SELECT * FROM cabang WHERE project='$np' AND kode='$cb'");
-        $c = mysql_fetch_assoc($liatcab);
-        $namacabang = $c['nama'];
-        echo "$namacabang";
-        ?>
-        </td>
-        <td><?php echo $c['alamat']; ?></td>
-        <td><?php echo $c['kota']; ?></td>
-        <td>
-        <?php
-        $kunj = $a['kunjungan'];
-        $liatkunj = mysql_query("SELECT nama FROM attribute WHERE kode='$kunj'");
-        $d = mysql_fetch_assoc($liatkunj);
-        $namakunj = $d['nama'];
-        echo "$namakunj";
-        ?>
-        </td>
+        <td><?php echo $a['kode']; ?></td>
+        <td><?php echo $a['nama']; ?></td>
+        <td><?php echo $a['alamat']; ?></td>
+        <td><?php echo $a['kota']; ?></td>
         <td>
           <?php
           $kode = $a['kode'];
-          $kodepro = $a['project'];
-           ?>
-          <button type="button" class="btn btn-default btn-small" onclick="assign_shp('<?php echo $np; ?>','<?php echo $cb; ?>','<?php echo $kunj; ?>')">Assign SHP</button>
+          ?>
+          <button type="button" class="btn btn-default btn-small" onclick="assign_shp('<?php echo $kode; ?>','<?php echo $spvdua; ?>','<?php echo $np; ?>')">Assign SHP</button>
         </td>
       </tr>
       <?php
@@ -100,12 +82,12 @@ $project =$_POST['project'];
   ?>
 
       <script type="text/javascript">
-        function assign_shp(project,cabang,kunjungan){
+        function assign_shp(kode,spvdua,np){
           // alert(noid+' - '+waktu);
           $.ajax({
               type : 'post',
               url : 'assignshopper.php',
-              data :  {project:project, cabang:cabang, kunjungan:kunjungan},
+              data :  {kode:kode, spvdua:spvdua, np:np},
               success : function(data){
                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
                 $('#myModal').modal();
@@ -114,19 +96,3 @@ $project =$_POST['project'];
         }
 
       </script>
-
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript">
-
-var geocoder = new google.maps.Geocoder();
-var address = jQuery('#address').val();
-
-geocoder.geocode( { 'address': address}, function(results, status) {
-
-if (status == google.maps.GeocoderStatus.OK) {
-    var latitude = results[0].geometry.location.lat();
-    var longitude = results[0].geometry.location.lng();
-    jQuery('#coordinates').val(latitude+', '+longitude);
-    }
-});
-</script>

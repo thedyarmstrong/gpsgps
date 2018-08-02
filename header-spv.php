@@ -21,17 +21,29 @@
               </a>
             </li>
 
-      <li class="treeview">
-              <a href="#">
-              <i class="fa fa-book"></i>
-              <span>Project</span>
-              <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="assign-spv.php"><i class="fa fa-angle-right"></i> Assign Kunjungan</a></li>
-                <li><a href="media.html"><i class="fa fa-angle-right"></i> Progress Project</a></li>
-              </ul>
-            </li>
+        <li class="treeview">
+                <a href="#">
+                <i class="fa fa-book"></i>
+                <span>Project</span>
+                <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="assign-spv.php"><i class="fa fa-angle-right"></i> Assign Kunjungan</a></li>
+                  <li><a href="progreskunjungan.php"><i class="fa fa-angle-right"></i> Progress Kunjungan</a></li>
+                </ul>
+              </li>
+
+              <li class="treeview">
+                      <a href="#">
+                      <i class="fa fa-pie-chart"></i>
+                      <span>Statistik</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li><a href="statshopper.php"><i class="fa fa-angle-right"></i>Statistik Shopper</a></li>
+                        <li><a href="statproject.php"><i class="fa fa-angle-right"></i>Statistik Project</a></li>
+                      </ul>
+                    </li>
 
             <li class="treeview">
               <a href="chartshopper.php">
@@ -256,7 +268,7 @@
               <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
               <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
               <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-              <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+              <li> <a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
             </ul>
           </li>
         </ul>

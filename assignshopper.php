@@ -4,12 +4,6 @@
     $password = "bm5092da";
     $dbname = "gps";
 
-    session_start();
-    if(!isset($_SESSION['nama_user'])){
-      header("location:login.php");
-        // die('location:login.php');//jika belum login jangan lanjut
-    }
-
     // membuat koneksi
     $koneksi = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,37 +12,67 @@
         die("Connection failed: " . $koneksi->connect_error);
     }
 
-    if($_POST['project'] && $_POST['cabang'] && $_POST['kunjungan']) {
-        $project    = $_POST['project'];
-        $cabang     = $_POST['cabang'];
-        $kunjungan  = $_POST['kunjungan'];
-
+    if($_POST['kode'] && $_POST['spvdua'] && $_POST['np']) {
+        $kode       = $_POST['kode'];
+        $spvdua     = $_POST['spvdua'];
+        $np         = $_POST['np'];
 
         // mengambil data berdasarkan id
         // dan menampilkan data ke dalam form modal bootstrap
 
-        $sql = "SELECT * FROM quest WHERE project='$project' AND cabang='$cabang' AND kunjungan='$kunjungan'";
+        $sql = "SELECT * FROM cabang WHERE kode='$kode' AND project='$np'";
         $result = $koneksi->query($sql);
         foreach ($result as $baris) {
 
         ?>
 
         <!-- MEMBUAT FORM -->
-        <form action="editdireksiproses.php" method="post">
+        <form action="assignshopperproses.php" method="POST">
 
           <input type="hidden" name="project" value="<?php echo $baris['project']; ?>">
-          <input type="hidden" name="cabang" value="<?php echo $baris['cabang']; ?>">
-          <input type="hidden" name="kunjungan" value="<?php echo $baris['kunjungan']; ?>">
+          <input type="hidden" name="cabang" value="<?php echo $baris['kode']; ?>">
+          <input type="hidden" name="spvdua" value="<?php echo $spvdua; ?>">
+
 
           <div class="form-group">
             <label for="status">Shopper :</label>
-            <select class="form-control" id="status" name="namashp">
+            <select class="form-control" id="status" name="shpdua">
               <?php
               $sql2 = "SELECT * FROM id_data WHERE posisi ='SHP' AND pendidikan ='S1' ORDER BY Nama";
               $result2 = $koneksi->query($sql2);
               foreach ($result2 as $baris2) {
               ?>
-              <option value="<?php echo $baris2['Nama']; ?>"><?php echo $baris2['Nama']; ?></option>
+              <option value="<?php echo $baris2['Id']; ?>"><?php echo $baris2['Nama']; ?></option>
+              <?php
+              }
+               ?>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Jenis Kunjungan :</label>
+            <select class="form-control" id="kunjungan" name="kunjungan">
+              <?php
+              $sql2 = "SELECT
+                      	a.att,
+                      	b.nama
+                      FROM
+                      	skenario AS a
+                      LEFT JOIN attribute AS b ON a.att = b.kode
+                      WHERE
+                      	a.project = '$np'
+                      AND a.att NOT IN (
+                      	SELECT
+                      		kunjungan
+                      	FROM
+                      		questtampung
+                      	WHERE
+                      		project = '$np'
+                      )";
+              $result2 = $koneksi->query($sql2);
+              foreach ($result2 as $baris2) {
+              ?>
+              <option value="<?php echo $baris2['att']; ?>"><?php echo $baris2['nama']; ?></option>
               <?php
               }
                ?>

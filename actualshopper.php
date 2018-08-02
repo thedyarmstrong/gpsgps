@@ -1,5 +1,18 @@
+<VirtualHost 127.0.0.2:80>
+  DocumentRoot "C:/xampp/htdocs/myproject/web"
+  DirectoryIndex index.php
+
+  <Directory "C:/xampp/htdocs/myproject/web">
+	Options All
+	AllowOverride All
+	Require all granted
+  </Directory>
+</VirtualHost>
+
+
 <?php
-error_reporting(0);
+//error_reporting(0);
+include "koneksi.php";
 session_start();
 if(!isset($_SESSION['username'])){
   header("location:login.php");
@@ -115,49 +128,130 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-spv.php";
-include "koneksi.php";
-
+include "header-shopper.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-        <div class="row">
-          <div class="form-three widget-shadow">
+<form action="actualshopperproses.php" method="POST" class="form-horizontal">
 
-            <form class="form-horizontal" action="assign-spv.php?page=1" method="POST">
+  <?php
+  $num = $_GET['num'];
+  $selquest =  mysql_query("SELECT * FROM quest WHERE num='$num'");
+  while ($a = mysql_fetch_array($selquest)){
+  ?>
 
-              <input type="hidden" name="spvdua" value="<?php echo $_SESSION['username']; ?>">
+<input type="hidden" name="num" value="<?php echo $num; ?>">
 
-              <div class="form-group">
-                <label for="selector1" class="col-sm-2 control-label">Project</label>
-                <div class="col-sm-6"><select name="project" id="selector1" class="form-control1">
-                <option disabled selected>Pilih Project</option>
-                <?php
-                $project = mysql_query("SELECT * FROM project WHERE visible ='y' ORDER BY nama");
-                while ($a = mysql_fetch_array($project)){
-                ?>
-                <option value="<?php echo $a['kode']; ?>"><?php echo $a['nama']; ?></option>
-                <?php
-                }
-                ?>
-                </select></div>
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Project :</label>
+  <div class="col-md-8">
+    <?php
+    $prj = $a['project'];
+    $project = mysql_query("SELECT nama FROM project WHERE kode='$prj'");
+    $b = mysql_fetch_assoc($project);
+    ?>
+    <input type="text" class="form-control1" placeholder="<?php echo $b['nama']?>" readonly="">
+  </div>
+</div>
 
-              <div class="col-sm-2"><button class="btn btn-success" name="submit">Submit</button></div>
-              </div>
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Cabang :</label>
+  <div class="col-md-8">
+    <?php
+    $cbg = $a['cabang'];
+    $cabang = mysql_query("SELECT * FROM cabang WHERE kode='$cbg' AND project='$prj'");
+    $c = mysql_fetch_assoc($cabang);
+    ?>
+    <input type="text" class="form-control1" placeholder="[<?php echo $c['kode']?>] - <?php echo $c['nama']?>" readonly="">
+  </div>
+</div>
 
-            </form>
-          </div>
-        </div>
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Kunjungan :</label>
+  <div class="col-md-8">
+    <?php
+    $kunj = $a['kunjungan'];
+    $kunjungan = mysql_query("SELECT nama FROM attribute WHERE kode='$kunj'");
+    $d = mysql_fetch_assoc($kunjungan);
+    ?>
+    <input type="text" class="form-control1" placeholder="<?php echo $d['nama']?>" readonly="">
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">STKB :</label>
+  <div class="col-md-8">
+    <input type="text" class="form-control1" placeholder="Enter ID STKB !!" name="idstkb">
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">TD CS :</label>
+  <div class="col-md-8">
+    <input type="time" class="form-control1" name="idstkb" min="0:00" max="03:00">
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">TD Teller :</label>
+  <div class="col-md-8">
+    <input type="time" class="form-control1" name="idstkb">
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Lokasi :</label>
+  <div class="col-md-8">
+    <button type="button" class="btn btn-warning" onclick="getLocation()">Get Maps</button>
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Latitude :</label>
+  <div class="col-md-8">
+    <input id="lat" name="latitude" type="text" required="required" readonly>
+  </div>
+</div>
+
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Longitude :</label>
+  <div class="col-md-8">
+    <input id="lon" name="longitude" type="text" required="required" readonly>
+  </div>
+</div>
+
+<div class="col-md-2 control-label">
+<button class="btn btn-success" name="submit">SUBMIT</button>
+</div>
 
 
-<?php
 
-include "isi.php";
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
 
- ?>
+function showPosition(position) {
+    $("#lat").val(position.coords.latitude);
+
+    $("#lon").val(position.coords.longitude);
+}
+</script>
+
+
+
+
+
+</form>
+
+<?php } ?>
 
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->
