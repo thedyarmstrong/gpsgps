@@ -140,18 +140,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-shopper.php";
+include "header-spv.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-<form action="actualshopperproses.php" method="POST" class="form-horizontal">
+<form action="actualspvproses.php" method="POST" class="form-horizontal">
 
   <?php
   $num = $_GET['num'];
-  $selquest =  mysql_query("SELECT * FROM questtampung WHERE num='$num'");
+  $selquest =  mysql_query("SELECT * FROM quest WHERE num='$num'");
   while ($a = mysql_fetch_array($selquest)){
   ?>
 

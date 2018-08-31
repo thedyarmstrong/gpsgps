@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }

@@ -2,7 +2,7 @@
 error_reporting(0);
 include "koneksi.php";
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }
@@ -123,7 +123,7 @@ include "header-shopper.php";
 		<div id="page-wrapper">
 			<div class="main-page">
 
-        <div class="bs-example widget-shadow" data-example-id="hoverable-table">
+        <div class="table-responsive bs-example widget-shadow" data-example-id="hoverable-table">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -137,7 +137,10 @@ include "header-shopper.php";
                 <th>Supervisor</th>
                 <th>Shopper</th>
                 <th>Status</th>
-                <th>Actual</th>
+                <th>Tanggal</th>
+                <th>TD CS</th>
+                <th>TD Teller</th>
+                <th>Koordinat</th>
               </tr>
             </thead>
 
@@ -145,9 +148,9 @@ include "header-shopper.php";
               <tr>
                 <?php
                 include "koneksi.php";
-                $username = $_SESSION['username'];
+                $username = $_SESSION['Id'];
                 $i = 1;
-                $cabang = mysql_query("SELECT * FROM quest WHERE shpdua ='$username' AND status= 0 ");
+                $cabang = mysql_query("SELECT * FROM questtampung WHERE shpdua ='$username' AND status= 1 ");
                 while ($a = mysql_fetch_array($cabang)){
                  ?>
                 <th scope="row"><?php echo $i++ ?></th>
@@ -200,7 +203,10 @@ include "header-shopper.php";
                   ?>
                 </td>
                 <td><?php echo $a['status']; ?></td>
-                <td><a href="#">Actual</a></td>
+                <td><?php echo $a['waktuassign']; ?></td>
+                <td><?php echo $a['tdcs']; ?></td>
+                <td><?php echo $a['tdteller']; ?></td>
+                <td><a href="https://www.google.com/maps/place/<?php echo $a['latitude']; ?>,<?php echo $a['longitude']; ?>" target="_blank">Koordinat</a></td>
               </tr>
               <?php
                 }
@@ -209,6 +215,7 @@ include "header-shopper.php";
             </tbody>
           </table>
         </div>
+      </div>
 
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->

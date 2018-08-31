@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }
@@ -129,7 +129,7 @@ include "koneksi.php";
 
             <form class="form-horizontal" action="assign-spv.php?page=1" method="POST">
 
-              <input type="hidden" name="spvdua" value="<?php echo $_SESSION['username']; ?>">
+              <input type="hidden" name="spvdua" value="<?php echo $_SESSION['Id']; ?>">
 
               <div class="form-group">
                 <label for="selector1" class="col-sm-2 control-label">Project</label>

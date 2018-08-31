@@ -1,7 +1,7 @@
 <?php
 //error_reporting(0);
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }
@@ -169,7 +169,7 @@ include "header-shopper.php";
                     <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
                     <div class="stats">
                       <?php
-                      $liatprog = mysql_query("SELECT * FROM quest WHERE status= 0 AND shpdua IS NOT NULL");
+                      $liatprog = mysql_query("SELECT * FROM questtampung WHERE status= 0 AND shpdua IS NOT NULL");
                       $pg = mysql_num_rows($liatprog);
                       ?>
                       <h5><strong><?php echo $pg; ?></strong></h5>

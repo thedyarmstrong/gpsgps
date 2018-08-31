@@ -1,5 +1,18 @@
+<VirtualHost 127.0.0.2:80>
+  DocumentRoot "C:/xampp/htdocs/myproject/web"
+  DirectoryIndex index.php
+
+  <Directory "C:/xampp/htdocs/myproject/web">
+	Options All
+	AllowOverride All
+	Require all granted
+  </Directory>
+</VirtualHost>
+
+
 <?php
-error_reporting(0);
+//error_reporting(0);
+include "koneksi.php";
 session_start();
 if(!isset($_SESSION['Id'])){
   header("location:login.php");
@@ -53,6 +66,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
   width: 100%;
   height: 295px;
 }
+
+.without_ampm::-webkit-datetime-edit-ampm-field {
+   display: none;
+ }
+ input[type=time]::-webkit-clear-button {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   -o-appearance: none;
+   -ms-appearance:none;
+   appearance: none;
+   margin: -10px;
+ }
 </style>
 <!--pie-chart --><!-- index page sales reviews visitors pie chart -->
 <script src="js/pie-chart.js" type="text/javascript"></script>
@@ -115,48 +140,100 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-spv.php";
-include "koneksi.php";
-
+include "header-re.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-        <div class="row">
-          <div class="form-three widget-shadow">
+<form action="buatprojectproses.php" method="POST" class="form-horizontal">
 
-            <form class="form-horizontal" action="statproject.php?page=1" method="POST">
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Kode Project :</label>
+  <div class="col-md-8">
+    <input id="kode" name="kode" type="text" required class="form-control" maxlength="4" style="text-transform:uppercase">
+  </div>
+</div>
 
-              <div class="form-group">
-                <label for="selector1" class="col-sm-2 control-label">Nama Project</label>
-                <div class="col-sm-6"><select name="project" id="selector1" class="form-control1">
-                <option disabled selected>Pilih Nama Project</option>
-                <?php
-                $project = mysql_query("SELECT * FROM project WHERE visible ='y' ORDER BY nama");
-                while ($a = mysql_fetch_array($project)){
-                ?>
-                <option value="<?php echo $a['kode']; ?>"><?php echo $a['kode']; ?> - <?php echo $a['nama']; ?></option>
-                <?php
-                }
-                ?>
-                </select></div>
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Nama Project :</label>
+  <div class="col-md-8">
+    <input id="nama" name="nama" type="text" required class="form-control">
+  </div>
+</div>
 
-              <div class="col-sm-2"><button class="btn btn-success" name="submit">Submit</button></div>
-              </div>
+<div class="form-group mb-n">
+  <label class="col-md-2 control-label">Nama Bank :</label>
+  <div class="col-md-8">
+    <select name="bank" class="form-control">
+      <option selected disabled>Pilih Bank</option>
+      <?php
+      $namabank = mysql_query("SELECT * FROM bank ORDER BY nama");
+      while ($nb = mysql_fetch_array($namabank)){
+      ?>
+      <option value="<?php echo $nb['kode']; ?>"><?php echo $nb['nama']; ?></option>
+      <?php } ?>
+    </select>
+  </div>
+</div>
 
-            </form>
-          </div>
-        </div>
+<!-- <div class="form-group mb-n">
+  <label class="col-md-2 control-label">Tanggal :</label>
+  <div class="col-md-8">
+    <input id="tanggal" name="tanggal" type="date" required class="form-control">
+  </div>
+</div> -->
+
+<div class="form-group">
+  <label for="radio" class="col-sm-2 control-label">Type Project :</label>
+  <div class="col-sm-8">
+    <div class="radio-inline"><label><input type="radio" value="i" name="type"> Industri</label></div>
+    <div class="radio-inline"><label><input type="radio" value="n" name="type"> Non Industri</label></div>
+  </div>
+</div>
+
+<input type="hidden" name="visible" value="y">
+
+<div class="col-md-2 control-label">
+<button class="btn btn-success" name="submit">SUBMIT</button>
+</div>
 
 
-<?php
-include "isi3.php";
- ?>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    $("#lat").val(position.coords.latitude);
+
+    $("#lon").val(position.coords.longitude);
+}
+</script>
+
+</form>
 
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->
+
+<script>
+  $('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="Gagal"){
+            $(".Box").hide('slow');
+        }
+        if($(this).attr("value")=="Berhasil"){
+            $(".Box").show('slow');
+
+        }
+    });
+$('input[type="radio"]').trigger('click');
+</script>
 
 	<!-- new added graphs chart js-->
 
@@ -174,7 +251,6 @@ include "isi3.php";
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
-
 
 			function disableOther( button ) {
 				if( button !== 'showLeftPush' ) {

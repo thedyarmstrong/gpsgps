@@ -115,7 +115,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-spv.php";
+include "header-re.php";
 
  ?>
 

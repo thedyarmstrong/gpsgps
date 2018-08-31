@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+include "koneksi.php";
 session_start();
 if(!isset($_SESSION['Id'])){
   header("location:login.php");
@@ -116,47 +117,131 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <?php
 
 include "header-spv.php";
-include "koneksi.php";
-
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-        <div class="row">
-          <div class="form-three widget-shadow">
+        <div class="table-responsive bs-example widget-shadow">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Kode</th>
+                <th>Project</th>
+                <th>Nama Cabang</th>
+                <th>Alamat</th>
+                <th>Kota</th>
+                <th>Honor</th>
+                <th>Plan Start</th>
+                <th>Plan End</th>
+                <th>SPV</th>
+                <th>Kareg</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
 
-            <form class="form-horizontal" action="statproject.php?page=1" method="POST">
-
-              <div class="form-group">
-                <label for="selector1" class="col-sm-2 control-label">Nama Project</label>
-                <div class="col-sm-6"><select name="project" id="selector1" class="form-control1">
-                <option disabled selected>Pilih Nama Project</option>
+            <tbody>
+              <tr>
                 <?php
-                $project = mysql_query("SELECT * FROM project WHERE visible ='y' ORDER BY nama");
-                while ($a = mysql_fetch_array($project)){
+                include "koneksi.php";
+                $username = $_SESSION['Id'];
+                $i = 1;
+                $cabang = mysql_query("SELECT * FROM cabang WHERE kareg IS NOT NULL ORDER BY kode");
+                while ($a = mysql_fetch_array($cabang)){
+                 ?>
+                <th scope="row"><?php echo $i++ ?></th>
+                <td><?php echo $a['kode']; ?></td>
+                <td>
+                <?php
+                $np = $a['project'];
+                $liatnama = mysql_query("SELECT * FROM project WHERE kode='$np'");
+                $b = mysql_fetch_assoc($liatnama);
+                $namapro = $b['nama'];
+                echo "$namapro";
                 ?>
-                <option value="<?php echo $a['kode']; ?>"><?php echo $a['kode']; ?> - <?php echo $a['nama']; ?></option>
-                <?php
+                </td>
+                <td><?php echo $a['nama']; ?></td>
+                <td><?php echo $a['alamat']; ?></td>
+                <td><?php echo $a['kota']; ?></td>
+                <td><?php echo 'Rp. ' . number_format( $a['honor'], 0 , '' , ',' ); ?></td>
+                <td><?php echo $a['plantugasstart']; ?></td>
+                <td><?php echo $a['plantugasend']; ?></td>
+                <td>
+                  <?php
+                  $kodespv = $a['spvdua'];
+                  $liatspv = mysql_query("SELECT nama FROM tb_user WHERE username='$kodespv'");
+                  $e = mysql_fetch_assoc($liatspv);
+                  $namaspv = $e['nama'];
+                  echo "$namaspv";
+                ?>
+                </td>
+                <td>
+                  <?php
+                  $kodetl = $a['kareg'];
+                  $liattl = mysql_query("SELECT nama FROM tb_user WHERE username='$kodetl'");
+                  $e = mysql_fetch_assoc($liattl);
+                  $namatl = $e['nama'];
+                  echo "$namatl";
+                  ?>
+                </td>
+                <td>
+                  <?php
+                   $kd = $a['kode'];
+                   $num = $a['num'];
+                  // $selstat =  mysql_query("SELECT status FROM quest WHERE cabang ='$kd' AND project ='$np'");
+                  // $stts = mysql_fetch_assoc($selstat);
+                  // echo $stts['status'];
+                  ?>
+                  <button type="button" class="btn btn-default btn-small" onclick="detail_plan('<?php echo $kd; ?>','<?php echo $np; ?>','<?php echo $num; ?>')">DETAIL</button>
+                </td>
+              </tr>
+              <?php
                 }
-                ?>
-                </select></div>
-
-              <div class="col-sm-2"><button class="btn btn-success" name="submit">Submit</button></div>
-              </div>
-
-            </form>
-          </div>
+              ?>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-
-<?php
-include "isi3.php";
- ?>
-
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->
+
+  <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Detail Master Plan</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="fetched-data"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+      function detail_plan(kd,np,num){
+        // alert(noid+' - '+waktu);
+        $.ajax({
+            type : 'post',
+            url : 'detailmasterplan.php',
+            data :  {kd:kd, np:np, num:num},
+            success : function(data){
+              $('.fetched-data').html(data);//menampilkan data ke dalam modal
+              $('#myModal').modal();
+            }
+        });
+      }
+
+    </script>
+
 
 	<!-- new added graphs chart js-->
 

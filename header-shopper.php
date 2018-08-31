@@ -53,8 +53,8 @@
           <li class="dropdown head-dpdn">
             <?php
             include "koneksi.php";
-            $shpdua = $_SESSION['username'];
-            $notif = mysql_query("SELECT * FROM quest WHERE status = 0 AND shpdua='$shpdua'");
+            $shpdua = $_SESSION['Id'];
+            $notif = mysql_query("SELECT * FROM questtampung WHERE status = 0 AND shpdua='$shpdua'");
             $nt = mysql_num_rows($notif);
             ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue"><?php echo $nt; ?></span></a>
@@ -148,7 +148,7 @@
                 <span class="prfil-img"><img src="images/2.jpg" alt=""> </span>
                 <div class="user-name">
                   <?php
-                  $nama = $_SESSION['username'];
+                  $nama = $_SESSION['Id'];
                   $carinama = mysql_query("SELECT * FROM id_data WHERE id ='$nama'");
                   $a = mysql_fetch_assoc($carinama);
                   ?>
@@ -161,6 +161,7 @@
               </div>
             </a>
             <ul class="dropdown-menu drp-mnu">
+              <li> <a href="gantipassword.php"><i class="fa fa-sign-out"></i> Ganti Password</a> </li>
               <li> <a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
             </ul>
           </li>

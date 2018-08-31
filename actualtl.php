@@ -140,14 +140,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 <?php
 
-include "header-shopper.php";
+include "header-spv.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
 
-<form action="actualshopperproses.php" method="POST" class="form-horizontal">
+<form action="actualtlproses.php" method="POST" class="form-horizontal">
 
   <?php
   $num = $_GET['num'];
@@ -196,36 +196,9 @@ include "header-shopper.php";
 <div class="form-group mb-n">
   <label class="col-md-2 control-label">STKB :</label>
   <div class="col-md-8">
-    <input type="number" class="form-control1" placeholder="Enter ID STKB !!" name="idstkb" required>
+    <input type="text" class="form-control1" placeholder="Enter ID STKB !!" name="idstkb" required>
   </div>
 </div>
-
-<div class="form-group">
-  <label for="radio" class="col-sm-2 control-label">Ada Pewitness :</label>
-  <div class="col-sm-8">
-    <div class="radio-inline"><label><input type="radio" value="Ya" name="pewitness"> Ya</label></div>
-    <div class="radio-inline"><label><input type="radio" value="Tidak" name="pewitness"> Tidak</label></div>
-  </div>
-</div>
-
-<div class="pwt" style="display:none">
-  <div class="form-group mb-n">
-    <label class="col-md-2 control-label">Kode PWT :</label>
-    <div class="col-md-8">
-      <input type="text" class="form-control1" placeholder="Enter Kode PWT" name="kodepwt">
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="radio" class="col-sm-2 control-label">Kunjungan Berhasil :</label>
-  <div class="col-sm-8">
-    <div class="radio-inline"><label><input type="radio" value="Berhasil" name="hasilgagal"> Berhasil</label></div>
-    <div class="radio-inline"><label><input type="radio" value="Gagal" name="hasilgagal"> Gagal</label></div>
-  </div>
-</div>
-
-<div class="Box" style="display:none">
 
 <div class="form-group mb-n">
   <label class="col-md-2 control-label">TD CS :</label>
@@ -317,7 +290,7 @@ include "header-shopper.php";
 <div class="form-group mb-n">
   <label class="col-md-2 control-label">TD Teller :</label>
   <div class="col-md-8">
-    <select name="jamteller" >
+    <select name="jamteller">
       <option value="00">00</option>
       <option value="01">01</option>
       <option value="02">02</option>
@@ -411,17 +384,15 @@ include "header-shopper.php";
 <div class="form-group mb-n">
   <label class="col-md-2 control-label">Latitude :</label>
   <div class="col-md-8">
-    <input id="lat" name="latitude" type="text" required readonly class="form-control">
+    <input id="lat" name="latitude" type="text" required="required" readonly>
   </div>
 </div>
 
 <div class="form-group mb-n">
   <label class="col-md-2 control-label">Longitude :</label>
   <div class="col-md-8">
-    <input id="lon" name="longitude" type="text" required readonly class="form-control">
+    <input id="lon" name="longitude" type="text" required="required" readonly>
   </div>
-</div>
-
 </div>
 
 <div class="col-md-2 control-label">
@@ -446,36 +417,16 @@ function showPosition(position) {
 }
 </script>
 
+
+
+
+
 </form>
 
 <?php } ?>
 
   </div><!-- //Penutup Body -->
   </div><!-- //Penutup Body -->
-
-<script>
-  $('input[type="radio"]').click(function(){
-        if($(this).attr("value")=="Gagal"){
-            $(".Box").hide('slow');
-        }
-        if($(this).attr("value")=="Berhasil"){
-            $(".Box").show('slow');
-
-        }
-    });
-$('input[type="radio"]').trigger('click');
-
-$('input[type="radio"]').click(function(){
-      if($(this).attr("value")=="Tidak"){
-          $(".pwt").hide('slow');
-      }
-      if($(this).attr("value")=="Ya"){
-          $(".pwt").show('slow');
-
-      }
-  });
-$('input[type="radio"]').trigger('click');
-</script>
 
 	<!-- new added graphs chart js-->
 
@@ -493,6 +444,7 @@ $('input[type="radio"]').trigger('click');
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
+
 
 			function disableOther( button ) {
 				if( button !== 'showLeftPush' ) {

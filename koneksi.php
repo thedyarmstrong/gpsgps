@@ -3,7 +3,7 @@
 $host="192.168.15.233";
 $user="jayatta";
 $pass="bm5092da";
-$db="gps";
+$db="jay2";
 
 
 $koneksi=mysql_connect($host,$user,$pass);

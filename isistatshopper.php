@@ -4,6 +4,50 @@ $shopper    = $_POST['shopper'];
 
 ?>
 
+<!-- mainpage-chit -->
+<div class="chit-chat-layer1">
+<div class="col-md-12 chit-chat-layer1-left">
+           <div class="work-progres">
+                                    <header class="widget-header">
+                                        <h4 class="widget-title">Recent Followers</h4>
+                                    </header>
+          <hr class="widget-separator">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Total Kunjungan</th>
+                                  <th>Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $selper = mysql_query("SELECT * FROM questtampung WHERE shpdua='$shopper' AND status='0'");
+                            $ea = mysql_num_rows($selper);
+                            $aw = mysql_fetch_assoc($selper);
+
+                            $selper2 = mysql_query("SELECT * FROM questtampung WHERE shpdua='$shopper' AND status='1'");
+                            $ea2 = mysql_num_rows($selper2);
+                            $aw2 = mysql_fetch_assoc($selper2);
+
+                            ?>
+                            <tr>
+                              <td><?php echo $ea ?></td>
+                              <td><span class="label label-danger">in progress</span></td>
+                          </tr>
+                          <tr>
+                            <td><?php echo $ea2 ?></td>
+                            <td><span class="label label-success">Success</span></td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+         </div>
+  </div>
+</div>
+<div class="clearfix"> </div>
+</div>
+
 <div class="table-responsive bs-example widget-shadow">
   <table class="table table-hover">
     <thead>
@@ -27,9 +71,9 @@ $shopper    = $_POST['shopper'];
       <tr>
         <?php
         include "koneksi.php";
-        $username = $_SESSION['username'];
+        $username = $_SESSION['Id'];
         $i = 1;
-        $cabang = mysql_query("SELECT * FROM quest WHERE shpdua='$shopper'");
+        $cabang = mysql_query("SELECT * FROM questtampung WHERE shpdua='$shopper'");
         while ($a = mysql_fetch_array($cabang)){
          ?>
         <th scope="row"><?php echo $i++ ?></th>

@@ -24,7 +24,7 @@
       echo "<script language='javascript'>";
       echo "alert('GAGAL!! HARAP ISI YANG KOSONG')";
       echo "</script>";
-      echo "<script> document.location.href='actualshopper.php?num=$num'; </script>";
+      echo "<script> document.location.href='actualspv.php?num=$num'; </script>";
     }
 
     else{
@@ -39,7 +39,7 @@
         echo "<script language='javascript'>";
         echo "alert('Actual Berhasil')";
         echo "</script>";
-        echo "<script> document.location.href='kunjungancabang.php'; </script>";
+        echo "<script> document.location.href='kunjungancabangspv.php'; </script>";
       }
 
       else {

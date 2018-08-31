@@ -2,7 +2,7 @@
 error_reporting(0);
 include "koneksi.php";
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }
@@ -136,9 +136,7 @@ include "header-spv.php";
                 <th>Kunjungan</th>
                 <th>Supervisor</th>
                 <th>Shopper</th>
-                <th>Status</th>
-                <th>Map</th>
-                <th>Actual</th>
+                <th>Tgl Kunjungan</th>
               </tr>
             </thead>
 
@@ -146,9 +144,9 @@ include "header-spv.php";
               <tr>
                 <?php
                 include "koneksi.php";
-                $username = $_SESSION['username'];
+                $username = $_SESSION['Id'];
                 $i = 1;
-                $cabang = mysql_query("SELECT * FROM quest WHERE shpdua IS NOT NULL AND status= 0 ");
+                $cabang = mysql_query("SELECT * FROM quest WHERE shp IS NOT NULL AND status ='0' AND tanggal >= CURDATE()");
                 while ($a = mysql_fetch_array($cabang)){
                  ?>
                 <th scope="row"><?php echo $i++ ?></th>
@@ -200,9 +198,7 @@ include "header-spv.php";
                   echo "$namashp";
                   ?>
                 </td>
-                <td><?php echo $a['status']; ?></td>
-                <td><a href="https://www.google.com/maps/place/<?php echo $a['latitude']; ?>,<?php echo $a['longitude']; ?>" target="_blank">Koordinat</a></td>
-                <td><a href="actualshopper.php?num=<?php echo $a['num']; ?>">Actual</a></td>
+                <td><?php echo $a['tglkunjspv']; ?></td>
               </tr>
               <?php
                 }

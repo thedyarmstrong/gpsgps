@@ -68,7 +68,7 @@ $project    = $_POST['project'];
       <tr>
         <?php
         include "koneksi.php";
-        $username = $_SESSION['username'];
+        $username = $_SESSION['Id'];
         $i = 1;
         $cabang = mysql_query("SELECT * FROM quest WHERE project='$project'");
         while ($a = mysql_fetch_array($cabang)){

@@ -59,12 +59,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"> </div>
 							</div>
 							<input type="submit" name="Sign In" value="Sign In">
-							<div class="registration">
-								Don't have an account ?
-								<a class="" href="signup.html">
-									Create an account
-								</a>
-							</div>
 						</form>
 					</div>
 				</div>

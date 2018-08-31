@@ -2,7 +2,7 @@
 error_reporting(0);
 include "koneksi.php";
 session_start();
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['Id'])){
   header("location:login.php");
     // die('location:login.php');//jika belum login jangan lanjut
 }
@@ -136,7 +136,7 @@ include "header-shopper.php";
                 <th>Kunjungan</th>
                 <th>Supervisor</th>
                 <th>Shopper</th>
-                <th>Status</th>
+                <th>Tgl Kunjungan</th>
                 <th>Actual</th>
               </tr>
             </thead>
@@ -145,9 +145,9 @@ include "header-shopper.php";
               <tr>
                 <?php
                 include "koneksi.php";
-                $username = $_SESSION['username'];
+                $username = $_SESSION['Id'];
                 $i = 1;
-                $cabang = mysql_query("SELECT * FROM quest WHERE shpdua ='$username' AND status= 0 ");
+                $cabang = mysql_query("SELECT * FROM quest WHERE shp ='$username' AND status= 0 AND tanggal >= CURDATE()");
                 while ($a = mysql_fetch_array($cabang)){
                  ?>
                 <th scope="row"><?php echo $i++ ?></th>
@@ -184,7 +184,7 @@ include "header-shopper.php";
                 <td>
                   <?php
                   $kodespv = $a['spvdua'];
-                  $liatspv = mysql_query("SELECT nama FROM tb_user WHERE username='$kodespv'");
+                  $liatspv = mysql_query("SELECT nama FROM id_data WHERE Id='$kodespv'");
                   $e = mysql_fetch_assoc($liatspv);
                   $namaspv = $e['nama'];
                   echo "$namaspv";
@@ -192,14 +192,14 @@ include "header-shopper.php";
                 </td>
                 <td>
                   <?php
-                  $kodeshp = $a['shpdua'];
-                  $liatshp = mysql_query("SELECT nama FROM tb_user WHERE username='$kodeshp'");
+                  $kodeshp = $a['shp'];
+                  $liatshp = mysql_query("SELECT nama FROM id_data WHERE Id='$kodeshp'");
                   $e = mysql_fetch_assoc($liatshp);
                   $namashp = $e['nama'];
                   echo "$namashp";
                   ?>
                 </td>
-                <td><?php echo $a['status']; ?></td>
+                <td><?php echo $a['tanggal']; ?></td>
                 <td><a href="actualshopper.php?num=<?php echo $a['num']; ?>">Actual</a></td>
               </tr>
               <?php

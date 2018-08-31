@@ -127,17 +127,19 @@ include "koneksi.php";
         <div class="row">
           <div class="form-three widget-shadow">
 
-            <form class="form-horizontal" action="statproject.php?page=1" method="POST">
+            <form class="form-horizontal" action="planproject.php?page=1" method="POST">
+
+              <input type="hidden" name="spvdua" value="<?php echo $_SESSION['Id']; ?>">
 
               <div class="form-group">
-                <label for="selector1" class="col-sm-2 control-label">Nama Project</label>
+                <label for="selector1" class="col-sm-2 control-label">Project</label>
                 <div class="col-sm-6"><select name="project" id="selector1" class="form-control1">
-                <option disabled selected>Pilih Nama Project</option>
+                <option disabled selected>Pilih Project</option>
                 <?php
                 $project = mysql_query("SELECT * FROM project WHERE visible ='y' ORDER BY nama");
                 while ($a = mysql_fetch_array($project)){
                 ?>
-                <option value="<?php echo $a['kode']; ?>"><?php echo $a['kode']; ?> - <?php echo $a['nama']; ?></option>
+                <option value="<?php echo $a['kode']; ?>"><?php echo $a['nama']; ?></option>
                 <?php
                 }
                 ?>
@@ -152,7 +154,9 @@ include "koneksi.php";
 
 
 <?php
-include "isi3.php";
+
+include "isi5.php";
+
  ?>
 
   </div><!-- //Penutup Body -->

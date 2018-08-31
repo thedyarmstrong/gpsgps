@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+include "koneksi.php";
 session_start();
 if(!isset($_SESSION['Id'])){
   header("location:login.php");
@@ -48,91 +49,66 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/custom.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
-<style>
-#chartdiv {
-  width: 100%;
-  height: 295px;
-}
-</style>
-<!--pie-chart --><!-- index page sales reviews visitors pie chart -->
-<script src="js/pie-chart.js" type="text/javascript"></script>
- <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('#demo-pie-1').pieChart({
-                barColor: '#2dde98',
-                trackColor: '#eee',
-                lineCap: 'round',
-                lineWidth: 8,
-                onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-                }
-            });
-
-            $('#demo-pie-2').pieChart({
-                barColor: '#8e43e7',
-                trackColor: '#eee',
-                lineCap: 'butt',
-                lineWidth: 8,
-                onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-                }
-            });
-
-            $('#demo-pie-3').pieChart({
-                barColor: '#ffc168',
-                trackColor: '#eee',
-                lineCap: 'square',
-                lineWidth: 8,
-                onStep: function (from, to, percent) {
-                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
-                }
-            });
-
-
-        });
-
-    </script>
-<!-- //pie-chart --><!-- index page sales reviews visitors pie chart -->
-
-	<!-- requried-jsfiles-for owl -->
-					<link href="css/owl.carousel.css" rel="stylesheet">
-					<script src="js/owl.carousel.js"></script>
-						<script>
-							$(document).ready(function() {
-								$("#owl-demo").owlCarousel({
-									items : 3,
-									lazyLoad : true,
-									autoPlay : true,
-									pagination : true,
-									nav:true,
-								});
-							});
-						</script>
-					<!-- //requried-jsfiles-for owl -->
 </head>
 <body class="cbp-spmenu-push">
 
 <?php
 
-include "header-spv.php";
-include "koneksi.php";
-
+include "header-shopper.php";
  ?>
 
 		<!-- main content start-->
 		<div id="page-wrapper">
-			<div class="main-page">
 
+      <div class="row">
+        <div class="col-md-6 validation-grids widget-shadow" data-example-id="basic-forms">
+          <div class="form-title">
+            <h4>Ganti Password :</h4>
+          </div>
 
+          <div class="form-body">
+            <form data-toggle="validator" method="POST" action="gantipasswordproses.php">
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="inputName" value="<?php echo $_SESSION['Id']; ?>" name="username" readonly>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="nama" value="<?php echo $_SESSION['Nama']; ?>" name="nama" readonly>
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" id="passwordlama" placeholder="Password Lama" required name="passwordlama">
+              </div>
+
+              <div class="form-group">
+                <input type="password" data-toggle="validator" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password Baru" required name="passwordbaru">
+                <span class="help-block">Minimum of 6 characters</span>
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm password" required>
+                <div class="help-block with-errors"></div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary disabled" name="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
   </div><!-- //Penutup Body -->
-  </div><!-- //Penutup Body -->
 
-	<!-- new added graphs chart js-->
+  <!-- side nav js -->
+	<script src='js/SidebarNav.min.js' type='text/javascript'></script>
+	<script>
+      $('.sidebar-menu').SidebarNav()
+    </script>
+	<!-- //side nav js -->
 
-    <script src="js/Chart.bundle.js"></script>
-    <script src="js/utils.js"></script>
+	<!-- Classie --><!-- for toggle left push menu script -->
 		<script src="js/classie.js"></script>
 		<script>
 			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
@@ -145,7 +121,6 @@ include "koneksi.php";
 				classie.toggle( menuLeft, 'cbp-spmenu-open' );
 				disableOther( 'showLeftPush' );
 			};
-
 
 			function disableOther( button ) {
 				if( button !== 'showLeftPush' ) {
@@ -160,19 +135,12 @@ include "koneksi.php";
 	<script src="js/scripts.js"></script>
 	<!--//scrolling js-->
 
-	<!-- side nav js -->
-	<script src='js/SidebarNav.min.js' type='text/javascript'></script>
-	<script>
-      $('.sidebar-menu').SidebarNav()
-    </script>
-	<!-- //side nav js -->
-
-
-
-
 	<!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.js"> </script>
-	<!-- //Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.js"> </script>
+
+	<!--validator js-->
+	<script src="js/validator.min.js"></script>
+	<!--//validator js-->
 
 </body>
 </html>

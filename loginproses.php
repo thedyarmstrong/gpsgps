@@ -7,13 +7,12 @@ $password = $_POST['password'];
 $op = $_GET['op'];
 
 if($op=="in"){
-    $sql = mysql_query("SELECT * FROM tb_user WHERE username='$username' AND PASSWORD='$password'");
+    $sql = mysql_query("SELECT * FROM id_data WHERE Id ='$username' AND password ='$password'");
 
         if(mysql_num_rows($sql)==1){//jika berhasil akan bernilai 1
             $qry = mysql_fetch_array($sql);
-            $_SESSION['nama'] = $qry['nama'];
-            $_SESSION['divisi'] = $qry['divisi'];
-            $_SESSION['username'] = $qry['username'];
+            $_SESSION['Nama'] = $qry['Nama'];
+            $_SESSION['Id'] = $qry['Id'];
             $_SESSION['level'] = $qry['level'];
 
                 if($qry){
@@ -21,10 +20,18 @@ if($op=="in"){
                   {
                     header("location:home-spv.php");
                   }
-                    else if ($qry['divisi'] == "Manager" || $qry['divisi'] == "Manager")
+                    else if ($qry['level'] == "Manager" || $qry['level'] == "Manager")
                   {
                     header("location:home-manager.php");
                   }
+                  else if ($qry['level'] == "RE" || $qry['level'] == "RE")
+                {
+                  header("location:home-re.php");
+                }
+                else if ($qry['level'] == "Shopper" || $qry['level'] == "Shopper")
+                {
+                  header("location:home-shopper.php");
+                }
                   else {
                     header("location:home-shopper.php");
                   }
@@ -39,9 +46,8 @@ if($op=="in"){
 <?php
 }
 }else if($op=="out"){
-    unset($_SESSION['USERNAME']);
+    unset($_SESSION['Id']);
     unset($_SESSION['AKSES']);
     header("location:index.php");
 }
-
 ?>

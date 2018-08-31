@@ -21,31 +21,6 @@
               </a>
             </li>
 
-            <li class="treeview">
-                    <a href="#">
-                    <i class="fa fa-edit"></i>
-                    <span>Master Plan</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="planproject.php"><i class="fa fa-angle-right"></i>Plan Project</a></li>
-                      <li><a href="progresmasterplan.php"><i class="fa fa-angle-right"></i>Progress Master Plan</a></li>
-                      <li><a href="plansukses.php"><i class="fa fa-angle-right"></i>Kunjungan TL Sukses</a></li>
-                    </ul>
-                  </li>
-
-            <li class="treeview">
-                    <a href="#">
-                    <i class="fa fa-book"></i>
-                    <span>Kunjungan</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="kunjungancabangspv.php"><i class="fa fa-angle-right"></i> Kunjungan Pending</a></li>
-                      <li><a href="kunjungansuksesspv.php"><i class="fa fa-angle-right"></i> Kunjungan Sukses</a></li>
-                    </ul>
-                  </li>
-
         <li class="treeview">
                 <a href="#">
                 <i class="fa fa-book"></i>
@@ -67,8 +42,23 @@
                             </a>
                             <ul class="treeview-menu">
                               <li><a href="plankunjungan.php"><i class="fa fa-angle-right"></i>Assign TL</a></li>
+                              <li><a href="progressplan.php"><i class="fa fa-angle-right"></i>Progress Assign TL</a></li>
+                              <li><a href="plansukses.php"><i class="fa fa-angle-right"></i>Kunjungan TL Sukses</a></li>
                             </ul>
                           </li>
+
+                          <li class="treeview">
+                                  <a href="#">
+                                  <i class="fa fa-edit"></i>
+                                  <span>Master Plan</span>
+                                  <i class="fa fa-angle-left pull-right"></i>
+                                  </a>
+                                  <ul class="treeview-menu">
+                                    <li><a href="planproject.php"><i class="fa fa-angle-right"></i>Plan Project</a></li>
+                                    <li><a href="progresmasterplan.php"><i class="fa fa-angle-right"></i>Progress Master Plan</a></li>
+                                    <li><a href="plansukses.php"><i class="fa fa-angle-right"></i>Kunjungan TL Sukses</a></li>
+                                  </ul>
+                                </li>
 
                           <li class="treeview">
                                   <a href="#">
@@ -81,6 +71,19 @@
                                     <li><a href="statproject.php"><i class="fa fa-angle-right"></i>Statistik Project</a></li>
                                   </ul>
                                 </li>
+
+                                <li class="treeview">
+                                        <a href="#">
+                                        <i class="fa fa-edit"></i>
+                                        <span>Skenario</span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                          <li><a href="buatproject.php"><i class="fa fa-angle-right"></i>Buat Project Baru</a></li>
+                                          <li><a href="buatskenario.php"><i class="fa fa-angle-right"></i>Buat Skenario</a></li>
+                                          <li><a href="plansukses.php"><i class="fa fa-angle-right"></i>Kunjungan TL Sukses</a></li>
+                                        </ul>
+                                      </li>
 
           </ul>
         </div>
@@ -218,7 +221,7 @@
                 <div class="user-name">
                   <?php
                   include "koneksi.php";
-                  $nama = $_SESSION['Id'];
+                  $nama = $_SESSION['username'];
                   $carinama = mysql_query("SELECT * FROM id_data WHERE id ='$nama'");
                   $a = mysql_fetch_assoc($carinama);
                   ?>

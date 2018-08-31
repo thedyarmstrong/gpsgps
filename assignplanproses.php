@@ -8,30 +8,32 @@
   $cabang         = $_POST['cabang'];
   $spvdua         = $_POST['spvdua'];
   $shpdua         = $_POST['shpdua'];
-  $tglkunjspv     = $_POST['tglkunjspv'];
-  $kunjungan      = $_POST['kunjungan'];
-  $status         = 0;
+  // $kunjungan      = $_POST['kunjungan'];
   $waktuassign    = date("Y-m-d H:i:s");
 
   //periksa apakah udah submit
   if (isset($_POST['submit']))
   {
 
-      $update=mysql_query("INSERT INTO quest (project,cabang,kunjungan,shp,status,spvdua,tanggal,waktuassign)
-                            VALUES ('$project','$cabang','$kunjungan','$shpdua','$status','$spvdua','$tglkunjspv','$waktuassign')");
+      foreach ($_POST["kunjungan"] as $kunj) {
+
+        $update=mysql_query("INSERT INTO questtampung (project,cabang,kunjungan,status,spvdua,shpdua,waktuassign)
+                              VALUES ('$project','$cabang','$kunj', NULL,'$spvdua','$shpdua','$waktuassign')");
+
+      }
 
       //jika sudah berhasil
       if ($update){
         echo "<script language='javascript'>";
-        echo "alert('Assign Shopper Berhasil')";
+        echo "alert('Assign Plan Berhasil')";
         echo "</script>";
         echo "<script> document.location.href='assign-spv.php?page=1'; </script>";
       }
 
       else {
-        // echo "<script language='javascript'>";
-        // echo "alert('Assign Shopper Gagal')";
-        // echo "</script>";
+        echo "<script language='javascript'>";
+        echo "alert('Assign Shopper Gagal')";
+        echo "</script>";
       }
 
       }
